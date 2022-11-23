@@ -1,4 +1,171 @@
 @font-face {
   font-family: norse-bold;
-  src: url(/fonts/Norse-Bold.otf);
+  src: url(./fonts/Norse-Bold.otf);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  font-family: Roboto;
+  background-color: #f9fafb;
+}
+
+.sidebar {
+  align-self: stretch;
+  background-image: url(./images/halie-west-25xggax4bSA-unsplash.jpg);
+  background-size: cover;
+  color: white;
+  font-family: "norse-bold";
+  flex-basis: 40vw;
+}
+
+.sidebar-overlay {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  height: 20vh;
+  justify-content: center;
+  margin-top: 20vh;
+}
+
+.sidebar-overlay h1 {
+  font-size: 72px;
+}
+
+.sidebar-overlay img {
+  height: 80%;
+}
+
+main {
+  flex-basis: 60vw;
+}
+
+.main-info p {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+p,
+form button,
+fieldset > * {
+  margin-left: 3rem;
+}
+
+.main-info p {
+  margin-bottom: 1rem;
+}
+
+.main-info p:last-child {
+  margin-bottom: 1.5rem;
+}
+
+fieldset {
+  min-height: 33.3vh;
+  padding: 1rem 1rem 3rem 0;
+  background-color: white;
+  box-shadow: 0 0 2px black;
+  border: none;
+}
+
+form button {
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  background-color: #596d48;
+  padding: 0.5rem 2rem;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+label {
+  font-size: 12px;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  transition: border 0.1s ease-out;
+  appearance: none;
+  border: 1px solid grey;
+  border-radius: 5px;
+  width: 210px;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 5px;
+}
+
+fieldset > div {
+  display: flex;
+  justify-content: initial;
+  flex-flow: row wrap;
+  margin-top: 1rem;
+  gap: 2rem;
+}
+
+section {
+  height: 33.3vh;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+p {
+  width: 80%;
+}
+
+button {
+  margin-top: 2rem;
+}
+
+form + p {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+span {
+  font-size: 12px;
+  color: rgb(95, 99, 104);
+  width: 210px;
+}
+
+input:focus {
+  border: 1px solid blue;
+  outline: none;
+  box-shadow: 0 15px 10px -13px #111;
+  transition: border 0.1s ease-out;
+}
+
+input.invalid {
+  border: 1px solid red;
+}
+
+input.valid {
+  border: 1px solid green;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+@media (max-width: 850px) {
+  body {
+    flex-direction: column;
+  }
 }

@@ -4,7 +4,163 @@
     <title></title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="styles.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body></body>
+  <body>
+    <div class="sidebar">
+      <div class="sidebar-overlay">
+        <img src="images/odin-lined.png" alt="The Odin Project Logo" />
+        <h1>Odin</h1>
+      </div>
+      <div style="height: 60vh;"></div>
+    </div>
+    <main>
+      <section class="main-info">
+        <p>
+          This is not a real online service! You know you need something like
+          this in your life to help you realize your deepest dreams. Sign up
+          <em>now</em> to get started.
+        </p>
+        <p>You <em>know</em> you want to.</p>
+      </section>
+      <form method="post">
+        <fieldset>
+          <h2>Let's do this!</h2>
+          <div>
+            <div class="input-container">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="first_name" pattern="\p{L}+((['\- ]|(, ))\p{L}+)*\s?" required/>
+              <span id="fname-err" class="error" data-err-empty="Enter your first name" data-err-invalid="Are you sure you spelled your name correctly?"></span>
+            </div>
+            <div class="input-container">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="last_name" pattern="\p{L}+((['\- ]|(, ))\p{L}+)*\s?" required/>
+              <span id="fname-err" class="error" data-err-empty="Enter your last name" data-err-invalid="Are you sure you spelled your name correctly?"></span>
+            </div>
+            <div class="input-container">
+              <label for="email">Email</label>
+              <input type="email" id="fname" name="email" required/>
+              <span id="email-err" class="error" data-err-empty="Enter your email" data-err-invalid="Enter a valid email"></span>
+            </div class="input-container">
+            <div class="input-container">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone_number" pattern="\d{10}" required/>
+              <span id="phone-err" class="error" data-err-empty="Enter your phone number" data-err-invalid="Enter a 10 digit phone number"></span>
+            </div>
+            <div class="input-container">
+              <label for="pwd">Password</label>
+              <input type="password" id="pwd" name="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required/>
+              <span data-err-invalid="Password must be 8 characters long and must contain at least a digit, a small and a capital letter, and a special character">Password must be 8 characters long and must contain at least a digit, a small and a capital letter, and a special character</span>
+            </div>
+            <div class="input-container">
+              <label for="confirm-pwd">Confirm Password</label>
+              <input type="password" id="confirm-pwd" name="confirm_password" required/>
+              <span class="error" data-err-invalid="Passwords do not match"></span>
+            </div>
+          </div>
+        </fieldset>
+        <button type="submit">Create Account</button>
+      </form>
+      <p>Already have an account? <a href="#">Log in</a></p>
+    </main>
+    <script>
+      const inputs = document.querySelectorAll("input");
+      const confirmPwd = document.querySelector("#confirm-pwd")
+      const pwd = document.querySelector("#pwd")
+      confirmPwd.checkValidity = function(){
+        console.log(confirmPwd.textContent);
+        console.log(pwd.textContent);
+        if (confirmPwd.value === pwd.value) {
+          return true; 
+        }
+        else {
+          return false;
+        }
+      }
+      
+      function showError(err, input){
+        if (input.value === "" && input.id != 'pwd'){
+          err.textContent = err.dataset.errEmpty;
+        }
+        else {
+          err.classList.add('error');
+          err.textContent = err.dataset.errInvalid;
+        }
+      }
+      inputs.forEach(input => {
+        const err = input.nextElementSibling;
+        input.addEventListener('focus', (e) => {
+          input.classList.add('focus');
+        });
+        input.addEventListener('input', (e) => {
+          if (input.checkValidity()){
+            input.classList.remove('invalid');
+            if (input.id==="confirm-pwd") {
+              if (pwd.checkValidity()){
+                input.classList.add('valid');
+              }
+            }
+            else {
+              input.classList.add('valid');
+            }
+            err.textContent = "";
+          }
+          else {
+            if (input.classList.contains('valid')){
+              input.classList.remove('valid');
+              input.classList.add('invalid');
+              showError(err, input);
+            }
+            else if (input.classList.contains('invalid')){
+              showError(err, input);
+            }
+          }
+        });
+        input.addEventListener('blur', (e) => {
+          input.classList.remove('focus');
+          if (input.checkValidity()){
+            input.classList.remove('invalid');
+            if (input.value){
+              input.classList.add('valid');
+            }
+          }
+          else{
+            input.classList.add('invalid');
+            showError(err, input);
+          }
+        });
+      });
+
+      const button = document.querySelector('button');
+      button.addEventListener('click', (e) => {
+        inputs.forEach(input => {
+          if (!input.checkValidity()){
+            e.preventDefault();
+            if (input.id==="confirm-pwd"){
+              confirmPwd.classList.remove('valid');
+              if (pwd.checkValidity()){
+                confirmPwd.nextElementSibling.textContent = confirmPwd.nextElementSibling.dataset.errInvalid;
+                confirmPwd.classList.add('invalid');
+              }
+              else {
+                confirmPwd.nextElementSibling.textContent = "";
+              }
+              confirmPwd.value="";
+            }
+            else {
+              input.classList.add('invalid');
+              const err = input.nextElementSibling;
+              showError(err,input);
+            }
+          }
+        });
+      });
+  </script>
+  </body>
 </html>
